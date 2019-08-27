@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .container {
+            margin-top: 40px;
+        }
+        .navigation {
+            float: right;
+        }
+        h2 {
+            margin: 20px 0px 20px 0px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navigation"><a href="/logout">Log Out</a></div>
+        <h1>Hello, {{user.name}}!</h1>
+        <h3>Your Trip Schedules</h3>
+        <table class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                <th scope="col">Destination</th>
+                <th scope="col">Travel Start Date</th>
+                <th scope="col">Travel End Date</th>
+                <th scope="col">Plan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for travel in user_schedule %} 
+                <tr>
+                    <td><a href="/travels/destination/{{travel.id}}">{{travel.destination}}</a></td>
+                    <td>{{travel.travel_start}}</td>
+                    <td>{{travel.travel_end}}</td>
+                    <td>{{travel.plan}}</td>
+                </tr> 
+                {% endfor %}
+            </tbody>
+        </table> 
+        <h3>Other User's Travel Plans</h3>
+        <table class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Travel Start Date</th>
+                <th scope="col">Travel End Date</th>
+                <th scope="col">Do You Want to Join?</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for travel in other_users %}
+                <tr>
+                    <td>{{travel.added_by.name}}</td>
+                    <td><a href="/travels/destination/{{travel.id}}">{{travel.destination}}</a></td>
+                    <td>{{travel.travel_start}}</td>
+                    <td>{{travel.travel_end}}</td>
+                    <td><a href="/join_trip/{{travel.id}}">Join</a></td>
+                </tr>
+                {% endfor %} 
+            </tbody>
+        </table>
+        <a href="/travels/add">Add Travel Plan</a> 
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
